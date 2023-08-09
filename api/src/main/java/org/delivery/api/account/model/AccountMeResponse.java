@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-@JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class AccountMeResponse {
 
     private String email;
