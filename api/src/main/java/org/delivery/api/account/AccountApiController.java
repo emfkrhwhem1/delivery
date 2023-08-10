@@ -3,6 +3,7 @@ package org.delivery.api.account;
 import lombok.RequiredArgsConstructor;
 import org.delivery.api.account.model.AccountMeResponse;
 import org.delivery.api.common.api.Api;
+import org.delivery.api.common.error.UserErrorCode;
 import org.delivery.db.account.AccountEntity;
 import org.delivery.db.account.AccountRepository;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,7 @@ public class AccountApiController {
 
     private final AccountRepository accountRepository;
     @GetMapping("/me")
-    public Api<AccountMeResponse> save(){
+    public Api<Object> save(){
 
         var response =  AccountMeResponse.builder()
                 .name("홍길동")
@@ -26,6 +27,6 @@ public class AccountApiController {
                 .registeredAt(LocalDateTime.now())
                 .build();
 
-        return Api.OK(response);
+        return Api.ERROR(UserErrorCode.USER_NOT_FOUND," 홍길동이라는 사용자 없음");
     }
 }
