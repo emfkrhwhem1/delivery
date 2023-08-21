@@ -17,6 +17,4 @@ public enum ErrorCode implements ErrorCodeIfs{
     private final Integer errorCode;
     private final String description;
 
-
-
 }

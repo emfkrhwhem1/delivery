@@ -9,15 +9,16 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 
 @Component
 @Slf4j
 public class LoggerFilter implements Filter {
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         // 선 처리
-
         var req = new ContentCachingRequestWrapper((HttpServletRequest) request);
         var res = new ContentCachingResponseWrapper((HttpServletResponse) response);
 
@@ -27,6 +28,7 @@ public class LoggerFilter implements Filter {
         // request 정보
         var headerNames = req.getHeaderNames();
         var headerValues = new StringBuilder();
+
         headerNames.asIterator().forEachRemaining(headerKey ->{
             var headerValue = req.getHeader(headerKey);
             headerValues
@@ -59,7 +61,6 @@ public class LoggerFilter implements Filter {
         var responseBody = new String(res.getContentAsByteArray());
 
         log.info(" >>>> uri : {} , method : {} , header : {} , body : {} ",uri,method, responseHeaderValues, responseBody);
-
 
         res.copyBodyToResponse();
     }
